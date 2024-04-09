@@ -24,14 +24,14 @@ jobs:
       run: |
         rm -rf /tmp/WLEDtemp/* || true
         mkdir -p /tmp/WLEDtemp
-        wget https://github.com/Aircoookie/WLED/archive/refs/heads/main.zip -O /tmp/WLEDtemp/mm.zip
+        wget https://github.com/DarkAssassinUA/WLED-RU/archive/refs/heads/main.zip -O /tmp/WLEDtemp/mm.zip
         unzip /tmp/WLEDtemp/mm.zip -d /tmp/WLEDtemp
         find /tmp/WLEDtemp -maxdepth 1 -mindepth 1 -name "*" -type d >> /tmp/WLEDtemp/wledfoldername
         cd `cat /tmp/WLEDtemp/wledfoldername`
         npm install
         echo '[env:custom_build]' >>platformio.ini
-        echo 'extends = env:esp32c3dev_2MB' >>platformio.ini
-        echo 'build_flags = ${env:esp32c3dev_2MB.build_flags} -D WLED_DISABLE_ESPNOW -D LOLIN_WIFI_FIX -D WLED_DISABLE_MQTT -D WLED_DISABLE_LOXONE -D WLED_ENABLE_WEBSOCKETS -D WLED_ENABLE_ADALIGHT -D WLED_DISABLE_ALEXA -D WLED_DISABLE_HUESYNC -D WLED_DISABLE_2D -D CLIENT_SSID='\''"Las_Vegas"'\'' -D CLIENT_PASS='\''"Hollywood"'\'' -D WLED_AP_SSID='\''"WLED-Desk"'\'' -D WLED_AP_PASS='\''"Hollywood"'\''' >>platformio.ini
+        echo 'extends = env:esp32c3dev' >>platformio.ini
+        echo 'build_flags = ${env:esp32c3dev.build_flags} -D CLIENT_SSID='\''"Las_Vegas"'\'' -D CLIENT_PASS='\''"Hollywood"'\''' >>platformio.ini
         
         pio run -e custom_build || pio run -e custom_build
     - name: Copy Files
